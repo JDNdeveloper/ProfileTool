@@ -24,9 +24,8 @@ fi
             
 if [ "$WP" != "" ]
 then
-    # auto-switch to current package in chroot
-    cd /src/
+    # auto-switch to current package in workspace
+    cd $CURR_WS
     cd $CURR_PK
-    cls
 fi
                 
