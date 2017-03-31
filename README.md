@@ -74,7 +74,7 @@ ptoken_alias = [ r'alias (.*)=.*', r'alias .*=(.*)' ]
 
 The first regex will capture the lefthand side, and the second will capture the right hand side.
 
-1. **Define the `_format` expression.** In order to properly re-output the group, you will need to provide the format.
+2. **Define the `_format` expression.** In order to properly re-output the group, you will need to provide the format.
 
 Open `profile_tool.py` and add:
 
@@ -86,7 +86,7 @@ alias_format = 'alias %s=%s\n'
 ...
 ```
 
-1. **Edit bash profile to include token**. To show ProfileTool where to look, you'll need to wrap your alias section with `pt` tokens.
+3. **Edit bash profile to include token**. To show ProfileTool where to look, you'll need to wrap your alias section with `pt` tokens.
 
 Open `~/.bashrc` or `~/.bash_profile` and add:
 
