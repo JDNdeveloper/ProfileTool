@@ -71,10 +71,3 @@ class profile_tool:
          f.seek( 0 )
          f.write( ''.join( output_lines ) )
          f.truncate()
-
-if __name__ == '__main__':
-   tmp_profile_path = '/home/jayden/.bashrc.tmp'
-   p = profile_tool( tmp_profile_path )
-   groups = p.readGroups()
-   groups[ 'default_project' ][ 0 ] = ( 'bob.0', )
-   p.writeGroups( groups )
