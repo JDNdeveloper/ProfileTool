@@ -19,9 +19,9 @@ Python tool to easily manipulate bash profiles.
 
 ## Overview:
 
-The general usage is that you create sections in your profile (using start and end token comments, described below), and then define regex conditions to be run against these sections to form lists of information when the profile is parsed. This information can then be modified, and passed back to the ProfileTool which will write it back to the profile function.
+The general usage is that you create sections in your profile (using start and end token comments, described below), and then define regex conditions to be run against these sections to form lists of information when the profile is parsed. This information can then be modified, and passed back to the ProfileTool which will write it back to the profile.
 
-The original use case for this was to define my current workspace name (i.e. project) and package (i.e. active folder), so that when I logged into my server I was immediately in the active directory I wanted to be in. This could easily be accomplished by a single line in a bash profile, but I wanted to be able to easily switch active packages and between different projects, so I decided to write a handful of scripts (e.g. new project, delete project, set default project, set default package, list projects) to read and/or modify the profile accordingly. This required laborous custom file parsing for each tool, so I decided to abstract it to a common tool that would let me manipulate python data structures and then handle the conversion to and from the file for me, and thus ProfileTool was born. A `src/example_profile` is provided showing a bare-bones version of the profile I typically use.
+The original use case for this was to define my current workspace name (i.e. project) and package (i.e. active folder), so that when I logged into my server I was immediately in the active directory I wanted to be in. This could easily be accomplished by a single line in a bash profile, but I wanted to be able to easily switch active packages and between different projects, so I decided to write a handful of scripts (e.g. new project, delete project, set default project, set default package, list projects) to read and/or modify the profile accordingly. This required laborous custom parsing for each tool, so I decided to abstract it to a common tool that would let me manipulate python data structures and then handle the conversion to and from the file for me, and thus ProfileTool was born. A `src/example_profile` is provided showing a bare-bones version of the profile I typically use.
 
 ## API:
 
@@ -59,7 +59,7 @@ Writes the groups back to the bash profile using the group format defined at the
 
 In this example I'll be adding a capture group for aliases. This will allow you to parse your profile for aliases, manipulate them however you like, then write them back to your profile.
 
-1. **Define the `ptoken` regex.** In order to do that for the alias, we'll want to define two regular expressions, one to match the alias name, and one to match the command we're aliasing. We'll call this capture group `alias`.
+1. **Define the `ptoken` regex.** In order to do this for the alias, we'll want to define two regular expressions, one to match the alias name, and one to match the command we're aliasing. We'll call this capture group `alias`.
 
 Open `profile_tool.py` and add:
 
@@ -86,7 +86,7 @@ alias_format = 'alias %s=%s\n'
 ...
 ```
 
-1. **Edit bash profile to include token**. To show ProfileTool where to look, you'll need to wrap your alias section with pt tokens.
+1. **Edit bash profile to include token**. To show ProfileTool where to look, you'll need to wrap your alias section with `pt` tokens.
 
 Open `~/.bashrc` or `~/.bash_profile` and add:
 
