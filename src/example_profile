@@ -1,0 +1,32 @@
+# .bashrc
+
+if [ -z ${CURR_WS+x} ]
+then
+# pt_start default_project
+export CURR_WS="Proj_A.0"
+# pt_end default_project
+fi
+
+# pt_start projects
+if [ "$CURR_WS" == "Proj_A.3" ]
+then
+    export CURR_PK="Pack_A/subdir"
+fi
+if [ "$CURR_WS" == "Proj_B.4" ]
+then
+    export CURR_PK="Pack_B"
+fi
+if [ "$CURR_WS" == "Proj_C.0" ]
+then
+    export CURR_PK="Pack_C"
+fi
+# pt_end projects
+            
+if [ "$WP" != "" ]
+then
+    # auto-switch to current package in chroot
+    cd /src/
+    cd $CURR_PK
+    cls
+fi
+                
