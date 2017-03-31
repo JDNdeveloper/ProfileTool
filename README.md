@@ -36,7 +36,7 @@ In order to use this tool, you must include `pt` (**p**rofile**t**ool) tokens in
 # pt_end group_name
 ```
 
-The lines between the start and end tokens are called a capture group. They will be parsed using the regex you define in profile_tool.py. Currently the capture groups `default_project` and `projects` are defined, but you can easily add more. Refer to the examples section for more details.
+The lines between the start and end tokens are called a capture group. They will be parsed using the regex you define in capture_groups.py. Currently the capture groups `default_project` and `projects` are defined, but you can easily add more. Refer to the examples section for more details.
 
 ### ProfileTool:
 
@@ -44,12 +44,12 @@ The lines between the start and end tokens are called a capture group. They will
 Constructor takes in path to bash profile. If none provided, defaults to `~/.bashrc`.
 
 #### readGroups( self ):
-Parses all capture groups and converts them to python lists using the regex defined at the top of the file.
+Parses all capture groups and converts them to python lists using the regex defined in capture_groups.py.
 
 A dictionary is returned that maps group names to a list of their captured items. The captured items are stored as a tuple of the matched regex expressions from the regex list for that capture group.
 
 #### writeGroups( self, groups ):
-Writes the groups back to the bash profile using the group format defined at the top of profile_tool.py.
+Writes the groups back to the bash profile using the group format defined in capture_groups.py.
 
 ## Examples:
 
@@ -59,34 +59,29 @@ Writes the groups back to the bash profile using the group format defined at the
 
 In this example I'll be adding a capture group for aliases. This will allow you to parse your profile for aliases, manipulate them however you like, then write them back to your profile.
 
-1. **Define the `ptoken` regex.** In order to do this for the alias, we'll want to define two regular expressions, one to match the alias name, and one to match the command we're aliasing. We'll call this capture group `alias`.
+#### Define the `rgx_` and `fmt_`:
 
-Open `profile_tool.py` and add:
+In order to parse the alias, we'll want to define two regular expressions, one to match the alias name, and one to match the command we're aliasing. We'll call this capture group `alias`.
+
+In order to properly re-output the group, you will need to provide the format.
+
+Open `capture_groups.py` and add:
 
 ```python
 ...
-#### USER DEFINED GROUPS
-# regex lists for capture groups
-...
-ptoken_alias = [ r'alias (.*)=.*', r'alias .*=(.*)' ]
+# CAPTURE_GROUP: alias
+rgx_alias = [ r'alias (.*)=.*', r'alias .*=(.*)' ]
+fmt_alias = 'alias %s=%s\n'
 ...
 ```
 
 The first regex will capture the lefthand side, and the second will capture the right hand side.
 
-2. **Define the `_format` expression.** In order to properly re-output the group, you will need to provide the format.
+The format will take the two captured items and substitute them back into the format string where `%s` currently is.
 
-Open `profile_tool.py` and add:
+#### Edit bash profile to include token:
 
-```python
-...
-# output format for capture groups
-...
-alias_format = 'alias %s=%s\n'
-...
-```
-
-3. **Edit bash profile to include token**. To show ProfileTool where to look, you'll need to wrap your alias section with `pt` tokens.
+To show ProfileTool where to look, you'll need to wrap your alias section with `pt` tokens.
 
 Open `~/.bashrc` or `~/.bash_profile` and add:
 

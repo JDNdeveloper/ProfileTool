@@ -3,21 +3,7 @@
 
 import re
 import os
-
-#### USER DEFINED GROUPS
-# regex lists for capture groups
-ptoken_default_project = [ 'export CURR_WS=\"(.*)\"' ]
-ptoken_projects = [ r'\"\$CURR_WS\" == \"(.*)\"', 'export CURR_PK=\"(.*)\"' ]
-
-# output format for capture groups
-default_project_format = 'export CURR_WS=\"%s\"\n'
-projects_format = '''\
-if [ "$CURR_WS" == "%s" ]
-then
-    export CURR_PK="%s"
-fi
-'''
-#### END OF USER DEFINED GROUPS
+import capture_groups as cg
 
 homeDir = os.path.expanduser( '~' )
 bashrc_path = homeDir + '/.bashrc'
@@ -43,7 +29,7 @@ class profile_tool:
                capture_group = pt_start_group[ 0 ]
             elif pt_end_group:
                # end of capture, get the group re from group name
-               group_re = globals()[ 'ptoken_' + capture_group ]
+               group_re = getattr( cg, 'rgx_' + capture_group )
 
                matches = []
                # for all regex provided for group, add them to matches
@@ -62,7 +48,7 @@ class profile_tool:
 
    def writeGroups( self, groups ):
       def render( group_name, data ):
-         group_format = globals()[ group_name + '_format' ]
+         group_format = getattr( cg, 'fmt_' + group_name )
          return ''.join( [ group_format % matches for matches in data ] )
       
       with open( self._profile_path, 'r+' ) as f:
