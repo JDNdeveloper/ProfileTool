@@ -10,7 +10,7 @@ orig_profile = 'example_profile'
 test_profile = 'test_profile'
 
 def runTest():
-   copyfile(orig_profile, test_profile)
+   copyfile( orig_profile, test_profile )
 
    ptool = pt.profile_tool( test_profile )
 
