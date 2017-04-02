@@ -152,7 +152,7 @@ alias vi="emacs"
 
 ### Project Examples
 
-I have included example Python scripts in `src/examples` that can be used to add a project, delete a project, set a default project, or a set default package. In order to run these scripts, they will need to be in the same directory as profile_tool.py (which currently they are not).
+I have included example Python scripts in `src/examples` that can be used to add a project, delete a project, set a default project, or set a default package. In order to run these scripts, they will need to be in the same directory as profile_tool.py (which currently they are not).
 
 To avoid depending on profile_tool.py being in your current directory, you can [add the directory holding profile_tool.py to your PYTHONPATH](http://stackoverflow.com/a/3402176/903996).
 
