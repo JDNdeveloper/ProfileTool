@@ -149,3 +149,14 @@ alias ls="ls -l"
 alias vi="emacs"
 # pt_end alias
 ```
+
+### Project Examples
+
+I have included example Python scripts in `src/examples` that can be used to add a project, delete a project, set a default project, or a set default package. In order to run these scripts, they will need to be in the same directory as profile_tool.py (which currently they are not).
+
+To avoid depending on profile_tool.py being in your current directory, you can [add it to your PYTHONPATH](http://stackoverflow.com/a/3402176/903996).
+
+## Testing
+
+* `src/profile_tool_test.py` unit tests `src/profile_tool.py`. It depends on `example_profile` and `profile_tool.py`.
+* `src/examples/proj_test.py` unit tests all `src/examples/*` project scripts. It depends on `example_profile` being in a directory one level higher, and depends on all project scripts in `src/examples/*`.
