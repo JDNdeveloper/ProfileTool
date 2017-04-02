@@ -8,7 +8,7 @@ from profile_tool import profile_tool
 from proj_helper import full_project_name
 
 def delete_proj( proj_name, profile='' ):
-   if proj_name == os.environ[ 'CURR_WS' ]:
+   if proj_name == os.environ.get( 'CURR_WS', '' ):
       print "can't delete the workspace you're currently in"
       exit( 1 )
 
