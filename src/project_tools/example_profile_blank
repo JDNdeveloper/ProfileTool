@@ -1,0 +1,18 @@
+# .bashrc
+
+if [ -z ${CURR_WS+x} ]
+then
+# pt_start default_project
+# pt_end default_project
+fi
+
+# pt_start projects
+# pt_end projects
+            
+if [ "$WP" != "" ]
+then
+    # auto-switch to current package in workspace
+    cd $CURR_WS
+    cd $CURR_PK
+fi
+                

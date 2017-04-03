@@ -4,23 +4,26 @@
 import argparse
 import os
 import sys
-from profile_tool import profile_tool
+from proj_helper import proj_helper
 
 def new_proj( proj_name, pkg_name, default, profile='' ):
    if profile:
-      pt = profile_tool( profile )
+      ph = proj_helper( profile )
    else:
-      pt = profile_tool()
-   groups = pt.readGroups()
-   projects = dict( groups[ 'projects' ] )
+      ph = proj_helper()
+   ph.read_profile()
+   projects = ph.projects
    if proj_name in projects:
       print 'Project already exists'
       exit( 1 )
+   elif proj_name == '':
+      print 'Project name cannot be empty'
+      exit( 1 )
    projects[ proj_name ] = pkg_name
-   groups[ 'projects' ] = projects.items()
+   ph.projects = projects
    if default:
-      groups[ 'default_project' ] = [ ( proj_name, ) ]
-   pt.writeGroups( groups )
+      ph.default_project = proj_name
+   ph.write_profile()
 
 if __name__ == '__main__':
    parser = argparse.ArgumentParser( description='add project' )

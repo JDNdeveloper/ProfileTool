@@ -38,7 +38,7 @@ In order to use this tool, you must include `pt` (**p**rofile**t**ool) tokens in
 
 The lines between the start and end tokens are called a capture group. They will be parsed using the regex you define in capture_groups.py. Currently the capture groups `default_project` and `projects` are defined, but you can easily add more. Refer to the examples section for more details.
 
-### ProfileTool:
+### Profile Tool:
 
 #### __init__( self, profile_path ):
 Constructor takes in path to bash profile. If none provided, defaults to `~/.bashrc`.
@@ -150,13 +150,15 @@ alias vi="emacs"
 # pt_end alias
 ```
 
-### Project Examples
+### Project Tools:
 
-I have included example Python scripts in `src/examples` that can be used to add a project, delete a project, set a default project, or set a default package. In order to run these scripts, they will need to be in the same directory as profile_tool.py (which currently they are not).
+I have included some project manipulation tools in `src/project_tools/` that can be used to add a project, delete a project, set a default project, or set a default package. In order to run these scripts, they will need to be in the same directory as profile_tool.py (which currently they are not). 
 
 To avoid depending on profile_tool.py being in your current directory, you can [add the directory holding profile_tool.py to your PYTHONPATH](http://stackoverflow.com/a/3402176/903996).
+
+The project tools scripts all use the `proj_helper` class in `src/project_tools/proj_helper.py`. It is a wrapper for the profile tool that makes modifying projects, packages, and the default project easier. `proj_helper` provides a function `get_full_project_name` which expands a substring name to the full project name, along with catching edge case errors, and can be useful when you would like to just type the prefix of a project name rather than spelling the whole thing out.
 
 ## Testing
 
 * `src/profile_tool_test.py` unit tests `src/profile_tool.py`. It depends on `example_profile` and `profile_tool.py`.
-* `src/examples/proj_test.py` unit tests all `src/examples/*` project scripts. It depends on `example_profile` being in a directory one level higher, and depends on all project scripts in `src/examples/*`.
+* `src/project_tools/proj_test.py` unit tests all `src/project_tools/*` project scripts. It depends on all project scripts in `src/project_tools/*`.

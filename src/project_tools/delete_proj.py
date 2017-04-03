@@ -4,8 +4,7 @@
 import argparse
 import os
 import sys
-from profile_tool import profile_tool
-from proj_helper import full_project_name
+from proj_helper import proj_helper
 
 def delete_proj( proj_name, profile='' ):
    if proj_name == os.environ.get( 'CURR_WS', '' ):
@@ -13,19 +12,23 @@ def delete_proj( proj_name, profile='' ):
       exit( 1 )
 
    if profile:
-      pt = profile_tool( profile )
+      ph = proj_helper( profile )
    else:
-      pt = profile_tool()
-   groups = pt.readGroups()
-   projects = dict( groups[ 'projects' ] )
-   full_proj_name = full_project_name( proj_name, projects.items() )
+      ph = proj_helper()
+   ph.read_profile()
+   projects = ph.projects
+   full_proj_name = ph.get_full_project_name( proj_name )
    del projects[ full_proj_name ]
-   if full_proj_name == groups[ 'default_project' ][ 0 ][ 0 ]:
+   if full_proj_name == ph.default_project:
       # if deleted project was default, change default project to
-      # the first other project in the dictionary of projects
-      groups[ 'default_project' ] = [ ( projects.keys()[ 0 ], ) ]
-   groups[ 'projects' ] = projects.items()
-   pt.writeGroups( groups )
+      # the first other project in the dictionary of projects if
+      # there are more projects
+      if projects:
+         ph.default_project = projects.keys()[ 0 ]
+      else:
+         ph.default_project = ''
+   ph.projects = projects
+   ph.write_profile()
 
 if __name__ == '__main__':
    parser = argparse.ArgumentParser( description='delete project' )

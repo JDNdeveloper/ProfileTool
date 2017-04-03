@@ -4,18 +4,18 @@
 import argparse
 import os
 import sys
-from profile_tool import profile_tool
-from proj_helper import full_project_name
+from proj_helper import proj_helper
 
 def switch_proj( proj_name, profile='' ):
    if profile:
-      pt = profile_tool( profile )
+      ph = proj_helper( profile )
    else:
-      pt = profile_tool()
-   groups = pt.readGroups()
-   default_proj = full_project_name( proj_name, groups[ 'projects' ] )
-   groups[ 'default_project' ] = [ ( default_proj, ) ]
-   pt.writeGroups( groups )
+      ph = proj_helper()
+   ph.read_profile()
+   projects = ph.projects
+   full_project_name = ph.get_full_project_name( proj_name )
+   ph.default_project = full_project_name
+   ph.write_profile() 
 
 if __name__ == '__main__':
    parser = argparse.ArgumentParser( description='add project' )

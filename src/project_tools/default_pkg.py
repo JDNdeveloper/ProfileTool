@@ -4,20 +4,19 @@
 import argparse
 import os
 import sys
-from profile_tool import profile_tool
-from proj_helper import full_project_name
+from proj_helper import proj_helper
 
 def default_pkg( pkg_name, proj_name, profile='' ):
    if profile:
-      pt = profile_tool( profile )
+      ph = proj_helper( profile )
    else:
-      pt = profile_tool()
-   groups = pt.readGroups()
-   projects = dict( groups[ 'projects' ] )
-   full_proj_name = full_project_name( proj_name, projects.items() )
+      ph = proj_helper()
+   ph.read_profile()
+   full_proj_name = ph.get_full_project_name( proj_name )
+   projects = ph.projects
    projects[ full_proj_name ] = pkg_name
-   groups[ 'projects' ] = projects.items()
-   pt.writeGroups( groups )
+   ph.projects = projects
+   ph.write_profile()
 
 if __name__ == '__main__':
    parser = argparse.ArgumentParser( description='change default package' )
