@@ -11,10 +11,7 @@ def delete_proj( proj_name, profile='' ):
       print "can't delete the workspace you're currently in"
       exit( 1 )
 
-   if profile:
-      ph = proj_helper( profile )
-   else:
-      ph = proj_helper()
+   ph = proj_helper( profile )
    ph.read_profile()
    projects = ph.projects
    full_proj_name = ph.get_full_project_name( proj_name )

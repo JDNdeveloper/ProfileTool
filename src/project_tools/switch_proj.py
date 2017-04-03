@@ -7,10 +7,7 @@ import sys
 from proj_helper import proj_helper
 
 def switch_proj( proj_name, profile='' ):
-   if profile:
-      ph = proj_helper( profile )
-   else:
-      ph = proj_helper()
+   ph = proj_helper( profile )
    ph.read_profile()
    projects = ph.projects
    full_project_name = ph.get_full_project_name( proj_name )

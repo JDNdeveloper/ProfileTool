@@ -16,7 +16,10 @@ def check_groups( func ):
 
 class proj_helper(object):
    def __init__( self, profile, groups=None ):
-      self.ptool_ = profile_tool( profile )
+      if profile:
+         self.ptool_ = profile_tool( profile )
+      else:
+         self.ptool_ = profile_tool()
       self.groups_ = groups
 
    def read_profile( self ):

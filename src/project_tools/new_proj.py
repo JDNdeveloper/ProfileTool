@@ -7,10 +7,7 @@ import sys
 from proj_helper import proj_helper
 
 def new_proj( proj_name, pkg_name, default, profile='' ):
-   if profile:
-      ph = proj_helper( profile )
-   else:
-      ph = proj_helper()
+   ph = proj_helper( profile )
    ph.read_profile()
    projects = ph.projects
    if proj_name in projects:
