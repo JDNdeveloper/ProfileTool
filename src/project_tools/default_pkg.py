@@ -11,7 +11,8 @@ def default_pkg( pkg_name, proj_name, profile='' ):
    ph.read_profile()
    full_proj_name = ph.get_full_project_name( proj_name )
    projects = ph.projects
-   projects[ full_proj_name ] = pkg_name
+   old_pkg_name, proj_type = projects[ full_proj_name ]
+   projects[ full_proj_name ] = ( pkg_name, proj_type )
    ph.projects = projects
    ph.write_profile()
 

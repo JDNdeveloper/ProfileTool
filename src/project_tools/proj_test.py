@@ -25,29 +25,34 @@ def run_test():
    pkg_name_1 = 'Pkg_Test_1'
    pkg_name_2 = 'Pkg_Test_2'
 
+   proj_type_1 = 'Type_1'
+   proj_type_2 = 'Type_2'
+
    # NEW_PROJ test
 
-   # no default, empty package name
+   # no default, empty package name, empty type
    proj_name = proj_name_1
    pkg_name = ''
+   proj_type = ''
    ph.read_profile()
    assert proj_name not in ph.projects
-   new_proj( proj_name, pkg_name, False, profile=test_profile )
+   new_proj( proj_name, pkg_name, proj_type, False, profile=test_profile )
    ph.read_profile()
    assert proj_name in ph.projects
    assert proj_name != ph.default_project
-   assert pkg_name == ph.projects[ proj_name ]
+   assert ( pkg_name, proj_type ) == ph.projects[ proj_name ]
 
-   # default, with pacakge name
+   # default, with package name
    proj_name = proj_name_2
-   pkg_name = pkg_name_2 
+   pkg_name = pkg_name_2
+   proj_type = proj_type_2
    ph.read_profile()
    assert proj_name not in ph.projects
-   new_proj( proj_name, pkg_name, True, profile=test_profile )
+   new_proj( proj_name, pkg_name, proj_type, True, profile=test_profile )
    ph.read_profile()
    assert proj_name in ph.projects
    assert proj_name == ph.default_project
-   assert pkg_name == ph.projects[ proj_name ]
+   assert ( pkg_name, proj_type ) == ph.projects[ proj_name ]
 
 
    # DELETE_PROJ test
@@ -61,7 +66,7 @@ def run_test():
    ph.read_profile()
    assert proj_name not in ph.projects
    # re-add proj for rest of tests
-   new_proj( proj_name_1, pkg_name_1, True, profile=test_profile )
+   new_proj( proj_name_1, pkg_name_1, proj_type_1, True, profile=test_profile )
    
    # delete default project, verify top project is now default
    proj_name = proj_name_2
@@ -75,7 +80,7 @@ def run_test():
    top_project = ph.projects.keys()[ 0 ]
    assert top_project == ph.default_project
    # re-add proj for rest of tests
-   new_proj( proj_name_2, pkg_name_2, True, profile=test_profile )
+   new_proj( proj_name_2, pkg_name_2, proj_type_2, True, profile=test_profile )
 
 
    # SWITCH_PROJ test
@@ -95,11 +100,13 @@ def run_test():
    proj_name = proj_name_1
    pkg_name_old = pkg_name_1
    pkg_name_new = pkg_name_2
+   proj_type = proj_type_1
+   import Tac
    ph.read_profile()
-   assert pkg_name_old == ph.projects[ proj_name ]
+   assert ( pkg_name_old, proj_type ) == ph.projects[ proj_name ]
    default_pkg( pkg_name_new, proj_name, profile=test_profile )
    ph.read_profile()
-   assert pkg_name_new == ph.projects[ proj_name ]
+   assert ( pkg_name_new, proj_type ) == ph.projects[ proj_name ]
 
 
    # GET_FULL_PROJECT_NAME test
@@ -109,10 +116,10 @@ def run_test():
    fpn_a = 'fpn_a'
    fpn_b = 'fpn_b'
    fpn_full = 'fpn_unique_one'
-   new_proj( fpn_exact, '', False, profile=test_profile )
-   new_proj( fpn_a, '', False, profile=test_profile )
-   new_proj( fpn_b, '', False, profile=test_profile )
-   new_proj( fpn_full, '', False, profile=test_profile )
+   new_proj( fpn_exact, '', '', False, profile=test_profile )
+   new_proj( fpn_a, '', '', False, profile=test_profile )
+   new_proj( fpn_b, '', '', False, profile=test_profile )
+   new_proj( fpn_full, '', '', False, profile=test_profile )
    fpn_ambiguous = 'fpn'
    fpn_sub = 'fpn_unique'
    fpn_none = 'fpn_none'
@@ -158,9 +165,9 @@ def run_test():
    
    # new_proj blank test copyfile( blank_profile, test_profile )
    copyfile( blank_profile, test_profile )
-   new_proj( proj_name_1, pkg_name_1, True, profile=test_profile )
+   new_proj( proj_name_1, pkg_name_1, proj_type_1, True, profile=test_profile )
    ph.read_profile()
-   assert ph.projects == { proj_name_1: pkg_name_1 }
+   assert ph.projects == { proj_name_1: ( pkg_name_1, proj_type_1 ) }
    assert ph.default_project == proj_name_1
 
    # delete_proj deleting last project test
