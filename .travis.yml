@@ -1,6 +1,5 @@
 language: python
 python:
   - "2.7"
-script:
-  - python src/profile_tool_test.py
-  - python src/project_tools/proj_test.py
+script: ./run_tests.sh
+
