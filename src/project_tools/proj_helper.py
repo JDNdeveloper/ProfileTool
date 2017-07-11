@@ -46,14 +46,16 @@ class proj_helper(object):
    @check_groups
    def projects( self ):
       try:
-         return dict( self.groups_[ 'projects' ] )
+         return dict( [ ( a, ( b, c ) ) for ( a, b, c ) in
+                        self.groups_[ 'projects' ] ] )
       except:
          return {}
 
    @projects.setter
    @check_groups
    def projects( self, projects ):
-      self.groups_[ 'projects' ] = projects.items()
+      self.groups_[ 'projects' ] = [ ( a, b, c ) for ( a, ( b, c ) )
+                                     in projects.items() ]
 
    @check_groups
    def get_full_project_name( self, proj_name ):
