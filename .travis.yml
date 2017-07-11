@@ -1,5 +1,11 @@
 language: python
 python:
   - "2.7"
-script: ./run_tests.sh
-
+script: 
+  - cwd=$(pwd)
+  # run profile tool test
+  - cd ${cwd}/src/
+  - python profile_tool_test.py
+  # run project tools test
+  - cd ${cwd}/src/project_tools
+  - python proj_test.py
