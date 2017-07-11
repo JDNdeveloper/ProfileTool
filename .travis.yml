@@ -1,7 +1,10 @@
 language: python
 python:
   - "2.7"
-script: 
+before_script:
+  - export PYTHONPATH=$PYTHONPATH:$(pwd)/src
+  - export PYTHONPATH=$PYTHONPATH:$(pwd)/src/project_tools/
+script:
   - cwd=$(pwd)
   # run profile tool test
   - cd ${cwd}/src/
