@@ -101,7 +101,6 @@ def run_test():
    pkg_name_old = pkg_name_1
    pkg_name_new = pkg_name_2
    proj_type = proj_type_1
-   import Tac
    ph.read_profile()
    assert ( pkg_name_old, proj_type ) == ph.projects[ proj_name ]
    default_pkg( pkg_name_new, proj_name, profile=test_profile )
