@@ -1,6 +1,9 @@
 ProfileTool
 ========================
 
+.. image:: https://travis-ci.org/JDNdeveloper/ProfileTool?branch=master
+    :target: https://travis-ci.org/JDNdeveloper/ProfileTool
+
 **Author:** Jayden Navarro
 
 **Email:** jdndeveloper@gmail.com
