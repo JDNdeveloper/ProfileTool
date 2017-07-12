@@ -1,7 +1,7 @@
 ProfileTool
 ========================
     
-[![Build Status](https://travis-ci.org/JDNdeveloper/ProfileTool.png)](https://travis-ci.org/JDNdeveloper/ProfileTool)
+[![Build Status](https://travis-ci.org/JDNdeveloper/ProfileTool.svg?branch=master)](https://travis-ci.org/JDNdeveloper/ProfileTool)
 
 **Author:** Jayden Navarro
 
