@@ -24,9 +24,9 @@ def runTest():
    groups = ptool.readGroups()
    assert groups[ 'default_project' ] == [ ( 'Proj_A.0', ) ]
    assert groups[ 'projects' ] == [
-      ( 'Proj_A.3', 'Pack_A/subdir' ),
-      ( 'Proj_B.4', 'Pack_B' ),
-      ( 'Proj_C.0', 'Pack_C' ),
+      ( 'Proj_A.3', 'Pack_A/subdir', 'Type_A' ),
+      ( 'Proj_B.4', 'Pack_B', 'Type_B' ),
+      ( 'Proj_C.0', 'Pack_C', 'Type_C' ),
    ]
 
    os.remove( test_profile )

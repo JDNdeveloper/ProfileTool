@@ -11,14 +11,17 @@ fi
 if [ "$CURR_WS" == "Proj_A.3" ]
 then
     export CURR_PK="Pack_A/subdir"
+    export CURR_TYPE="Type_A"
 fi
 if [ "$CURR_WS" == "Proj_B.4" ]
 then
     export CURR_PK="Pack_B"
+    export CURR_TYPE="Type_B"
 fi
 if [ "$CURR_WS" == "Proj_C.0" ]
 then
     export CURR_PK="Pack_C"
+    export CURR_TYPE="Type_C"
 fi
 # pt_end projects
             
