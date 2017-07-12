@@ -11,5 +11,6 @@ fmt_projects = '''\
 if [ "$CURR_WS" == "%s" ]
 then
     export CURR_PK="%s"
+    export CURR_TYPE="%s"
 fi
 '''
