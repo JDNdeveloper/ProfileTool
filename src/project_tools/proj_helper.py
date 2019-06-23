@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # Author: Jayden Navarro
 
+import os
 from profile_tool import profile_tool
 
 class ProjectNameError( Exception ):
@@ -17,9 +18,11 @@ def check_groups( func ):
 class proj_helper(object):
    def __init__( self, profile, groups=None ):
       if profile:
-         self.ptool_ = profile_tool( profile )
+         self.ptool_ = profile_tool( profile_path=profile )
       else:
-         self.ptool_ = profile_tool()
+         # default to `~/.projects.conf`
+         homeDir = os.path.expanduser( '~' )
+         self.ptool_ = profile_tool( profile_path=( homeDir + '/.projects.conf' ) )
       self.groups_ = groups
 
    def read_profile( self ):
@@ -60,7 +63,7 @@ class proj_helper(object):
    @check_groups
    def get_full_project_name( self, proj_name ):
       projects = self.projects
-      
+
       # check for exact matches first
       exact_matches = [ name for name in projects if proj_name == name ]
       if len( exact_matches ) == 1:
