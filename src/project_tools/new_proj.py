@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python22
 # Author: Jayden Navarro
 
 import argparse
