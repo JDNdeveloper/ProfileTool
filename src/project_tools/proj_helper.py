@@ -48,8 +48,9 @@ class proj_helper(object):
    @property
    @check_groups
    def projects( self ):
+      # Each project is stored as (name, pkg, type, parent).
       try:
-         return dict( [ ( a, ( b, c ) ) for ( a, b, c ) in
+         return dict( [ ( a, ( b, c, d ) ) for ( a, b, c, d ) in
                         self.groups_[ 'projects' ] ] )
       except:
          return {}
@@ -57,7 +58,7 @@ class proj_helper(object):
    @projects.setter
    @check_groups
    def projects( self, projects ):
-      self.groups_[ 'projects' ] = [ ( a, b, c ) for ( a, ( b, c ) )
+      self.groups_[ 'projects' ] = [ ( a, b, c, d ) for ( a, ( b, c, d ) )
                                      in projects.items() ]
 
    @check_groups

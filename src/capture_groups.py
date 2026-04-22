@@ -7,11 +7,12 @@ fmt_default_project = 'export CURR_WS=\"%s\"\n'
 
 # CAPTURE_GROUP: projects
 rgx_projects = [ r'\"\$CURR_WS\" == \"(.*)\"', 'export CURR_PK=\"(.*)\"',
-                 'export CURR_TYPE=\"(.*)\"' ]
+                 'export CURR_TYPE=\"(.*)\"', 'export CURR_PARENT=\"(.*)\"' ]
 fmt_projects = '''\
 if [ "$CURR_WS" == "%s" ]
 then
     export CURR_PK="%s"
     export CURR_TYPE="%s"
+    export CURR_PARENT="%s"
 fi
 '''

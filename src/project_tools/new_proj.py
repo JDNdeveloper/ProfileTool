@@ -6,7 +6,7 @@ import os
 import sys
 from proj_helper import proj_helper
 
-def new_proj( proj_name, pkg_name, proj_type, default, profile='' ):
+def new_proj( proj_name, pkg_name, proj_type, parent, default, profile='' ):
    ph = proj_helper( profile )
    ph.read_profile()
    projects = ph.projects
@@ -16,7 +16,7 @@ def new_proj( proj_name, pkg_name, proj_type, default, profile='' ):
    elif proj_name == '':
       print 'Project name cannot be empty'
       exit( 1 )
-   projects[ proj_name ] = ( pkg_name, proj_type )
+   projects[ proj_name ] = ( pkg_name, proj_type, parent )
    ph.projects = projects
    if default:
       ph.default_project = proj_name
@@ -29,13 +29,16 @@ if __name__ == '__main__':
                         help='default package' )
    parser.add_argument( '--proj-type', default='',
                         help='project type' )
+   parser.add_argument( '--parent', default='',
+                        help='parent project name (lineage for rebase)' )
    parser.add_argument( '--default', action='store_true',
                         help='set project as default' )
-                     
+
    args = parser.parse_args()
    proj_name = args.project
    pkg_name = args.package
    proj_type = args.proj_type
+   parent = args.parent
    default = args.default
 
-   new_proj( proj_name, pkg_name, proj_type, default )
+   new_proj( proj_name, pkg_name, proj_type, parent, default )
