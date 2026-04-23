@@ -15,6 +15,18 @@ def delete_proj( proj_name, profile='' ):
    ph.read_profile()
    projects = ph.projects
    full_proj_name = ph.get_full_project_name( proj_name )
+
+   # Re-parent any children onto the deleted project's own parent. Without
+   # this, a stacked child keeps a CURR_PARENT pointer to a project (and
+   # branch) that no longer exists, which breaks rebaseat with "fatal:
+   # invalid upstream" on the next run.
+   _pkg, _type, deleted_parent = projects[ full_proj_name ]
+   for child_name, ( child_pkg, child_type, child_parent ) in projects.items():
+      if child_parent == full_proj_name:
+         projects[ child_name ] = ( child_pkg, child_type, deleted_parent )
+         print "reparented '%s' from '%s' to '%s'" % (
+            child_name, full_proj_name, deleted_parent or 'main' )
+
    del projects[ full_proj_name ]
    if full_proj_name == ph.default_project:
       # if deleted project was default, change default project to
